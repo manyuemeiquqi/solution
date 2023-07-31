@@ -1,0 +1,9 @@
+.hairline{
+    width: 100px;
+    border-bottom: 1px solid black;
+
+    /* transform: scale(0.5); */
+    transform: scaleY(0.5);
+    transform-origin: 0 0;
+    background: linear-gradient(to bottom, black 0px, black 50%, transparent 50%);
+}
