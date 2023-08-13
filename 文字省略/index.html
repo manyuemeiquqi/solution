@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        .a{
+            overflow: hidden;
+            text-overflow:ellipsis;
+            width: 50px;
+            white-space: nowrap; 
+        }
+        .b{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            width: 80px;
+        }
+    </style>
+    <div class="a">
+        111111111111111111111111111111\1
+        awefeaw awfwaef
+        waefawef
+        awefawef
+         wefaw
+    </div>
+    <div class="b">
+     多行文字省略，需要确认保持的行数
+     awefawef
+     awfwaef
+     aw
+     fwaf   
+    </div>
+</body>
+</html>
