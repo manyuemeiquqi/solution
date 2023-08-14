@@ -1,0 +1,7 @@
+.a{
+    width: 0;
+    border: 50px solid orange;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-top: 50px solid transparent;
+}
