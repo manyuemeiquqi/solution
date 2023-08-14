@@ -5,5 +5,5 @@
     /* transform: scale(0.5); */
     transform: scaleY(0.5);
     transform-origin: 0 0;
-    background: linear-gradient(to bottom, black 0px, black 50%, transparent 50%);
+    background: linear-gradient(to bottom, black 0, black 50%, transparent 50%);
 }
