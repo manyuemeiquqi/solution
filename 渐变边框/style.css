@@ -1,0 +1,15 @@
+.a{
+    width: 50px;
+    height: 50px;
+    border: 10px solid transparent;
+    border-radius: 10%;
+    background-clip: padding-box,border-box;
+    background-origin: padding-box,border-box;
+    background-image: linear-gradient(to right,#fff,#fff),
+    linear-gradient(135deg,#e941ab,#a557ef)
+
+    /* background-image
+    在绘制时，图像以 z 方向堆叠的方式进行。先指定的图像会在之后指定的图像上面绘制。因此指定的第一个图像“最接近用户
+    该解决方案就是绘制两层 image 第一层 为 padding-box,渐变色为 fff,第二层为 border-box，该层为 border 设置渐变色
+    */
+}
