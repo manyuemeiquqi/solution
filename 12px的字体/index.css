@@ -1,0 +1,14 @@
+.base{
+    font-size: 12px;
+}
+
+/* stylelint-disable-next-line selector-class-pattern */
+.font--lower-font{
+    transform: scale(0.5);
+    transform-origin: 0 0;
+}
+
+/* stylelint-disable-next-line selector-class-pattern */
+.font--lower-font-2{
+    zoom: 0.5;
+}
