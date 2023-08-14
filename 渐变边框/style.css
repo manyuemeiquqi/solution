@@ -3,7 +3,11 @@
     height: 50px;
     border: 10px solid transparent;
     border-radius: 10%;
+
+    /* determine painting area */
     background-clip: padding-box,border-box;
+
+    /* appoint painting origin */
     background-origin: padding-box,border-box;
     background-image: linear-gradient(to right,#fff,#fff),
     linear-gradient(135deg,#e941ab,#a557ef)
