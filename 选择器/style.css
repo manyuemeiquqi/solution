@@ -1,0 +1,38 @@
+/* .a{
+    color: red;
+} */
+
+/* #id-a{
+    color: red;
+} */
+
+/* [id='id-a']{
+    color:red
+} */
+
+/* .a:hover{
+    color: green;
+} */
+
+/* .a::after{
+    content: 'after';
+} */
+
+/* *{
+    color: red;
+} */
+
+/* p+li{
+    color: red;
+} */
+
+/* p~li{
+    color: red;
+} */
+
+/* ol > p{
+    color: red;
+} */
+[id]{
+    color: red;
+}
