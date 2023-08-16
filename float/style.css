@@ -1,0 +1,12 @@
+.b{
+    float: left;
+    width: 30px;
+    height: 30px;
+    background: yellow;
+}
+*{
+    margin: 0;padding: 0;
+}
+.c{
+    word-break: break-all;
+}
