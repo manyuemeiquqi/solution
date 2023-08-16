@@ -36,3 +36,7 @@
 [id]{
     color: red;
 }
+
+li:nth-child(odd){
+    color: green;
+}
