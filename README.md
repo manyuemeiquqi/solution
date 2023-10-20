@@ -1,0 +1,3 @@
+-- 命名规范
+- 目录 kebab 命名
+- 文件 vue 文件 Pascal case 其他文件 camel case
