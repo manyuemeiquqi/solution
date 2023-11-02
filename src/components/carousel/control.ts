@@ -2,7 +2,7 @@ import {type Ref} from 'vue'
 import type { ImgData } from './type'
 
 export default  class Slider {
-  timer: NodeJS.Timer | null = null
+  timer: any | null = null
   constructor(
     public cur: Ref<number>,
     public dataList: ImgData[],
