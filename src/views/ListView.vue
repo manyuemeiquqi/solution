@@ -8,13 +8,19 @@
         -{{ data.id }} -{{ data.lastName }}
       </li>
     </ul> -->
-    <FixedSizeList :source="dataList" :itemHeight="70" :containerHeight="600"> </FixedSizeList>
-    <variableDataList :source="variableDataList"></variableDataList>
+    <!-- <FixedSizeList :source="dataList" :itemHeight="70" :containerHeight="600"> </FixedSizeList> -->
+    <VariableSizeList
+      :estimatedItemHeight="50"
+      :containerHeight="500"
+      :source="variableDataList"
+    ></VariableSizeList>
   </div>
 </template>
 
 <script lang="ts" setup>
 import FixedSizeList from '@/components/v-list/FixedSizeList.vue'
+import VariableSizeList from '@/components/v-list/VariableSizeList.vue'
+import { faker } from '@faker-js/faker'
 
 interface RecordType {
   id: number
@@ -40,17 +46,17 @@ const getData = (count: number) => {
 }
 const getData2 = (count: number) => {
   const data: any[] = new Array(count).fill(null).map((_, index) => ({
-    id: index
-    // value: faker.lorem.sentences() // 长文本
+    id: index,
+    value: faker.lorem.sentences() // 长文本
+    // src: faker.image.url()
   }))
-
   return data
 }
 // 10w 条数据就开始明显感觉到渲染变慢，LCP 指标变大，能到 2s 附近，20w 就更为卡顿， 滚动时帧数维持在 35 附近，同时 LCP 到了10s
 
-const dataList = getData(200000)
+// const dataList = getData(200000)
 
-const variableDataList = getData2(200)
+const variableDataList = getData2(10)
 </script>
 
 <style lang="scss" scoped>
