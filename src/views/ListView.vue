@@ -56,7 +56,7 @@ const getData2 = (count: number) => {
 
 // const dataList = getData(200000)
 
-const variableDataList = getData2(10)
+let variableDataList: any[] = getData2(10000)
 </script>
 
 <style lang="scss" scoped>

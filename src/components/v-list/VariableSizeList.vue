@@ -9,20 +9,26 @@
     @scroll="handleScroll"
   >
     <div class="list-phantom" :style="{ height: `${phantomHeight}px` }"></div>
+    <!-- startOffset 是一个下移的属性，意思要保持当前视窗下的内容始终保存在视窗的顶部，也就是要从start -->
     <div
       :style="{
-        transform: `translate3d(0,${listTopOffset}px,0)`
+        transform: `translate3d(0,${startOffset}px,0)`
       }"
     >
-      <div ref="currentListRef" v-for="(item, index) in currentList" :key="index">
-        {{ item }}
-      </div>
+      <VariableItem
+        :measure="updatePositionList"
+        v-for="(item, index) in currentList"
+        :key="index"
+        :data="item"
+      >
+      </VariableItem>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, onBeforeMount, onMounted, ref, type ComputedRef } from 'vue'
+import { computed, ref, type ComputedRef } from 'vue'
+import VariableItem from './VariableItem.vue'
 
 interface Props {
   source: any[]
@@ -34,60 +40,55 @@ const props = defineProps<Props>()
 
 const currentListLength = Math.ceil(props.containerHeight / props.estimatedItemHeight)
 const container = ref<HTMLDivElement | null>(null)
-let listTopOffset = ref<number>(0)
+let startOffset = ref<number>(0)
+let startIdx = 0
 
 const positionList = ref(
   props.source.map((item, index) => ({
     index: index,
     top: index * props.estimatedItemHeight,
-    bottom: (index + 1) * props.estimatedItemHeight,
-    height: props.estimatedItemHeight
+    height: props.estimatedItemHeight,
+    bottom: (index + 1) * props.estimatedItemHeight
   }))
 )
 const phantomHeight: ComputedRef<number> = computed(() => {
-  return positionList.value.reduce((prev, cur) => prev + cur.height, 0)
+  const lastPosition = positionList.value[positionList.value.length - 1]
+  return lastPosition.bottom
 })
-let startIdx = 0
+const updatePositionList = (offsetHeight: number, positionIdx: number) => {
+  const position = positionList.value[positionIdx]
+  let oldHeight = position.height
+  let dHeight = oldHeight - offsetHeight
+  position.height = offsetHeight
+  if (dHeight !== 0) {
+    position.bottom = position.bottom - dHeight
+    for (let k = positionIdx + 1; k < positionList.value.length; k++) {
+      positionList.value[k].top = positionList.value[k - 1].bottom
+      positionList.value[k].bottom = positionList.value[k].bottom - dHeight
+    }
+  }
+}
+let topOffset = 0
 const handleScroll = () => {
-  const topOffset = container.value!.scrollTop
-
+  topOffset = container.value!.scrollTop
   startIdx = positionList.value.findIndex((i) => i && i.bottom > topOffset)
-
   updateCurrentList(startIdx)
 }
 
 function updateCurrentList(idx: number) {
-  currentList.value = props.source.slice(idx, idx + currentListLength)
-  currentListRef.value?.forEach((item) => {
-    resizeObserver.observe(item)
-  })
-  listTopOffset.value = positionList.value[idx].top
+  currentList.value = props.source.slice(idx, idx + currentListLength).map((item, curIdx) => ({
+    ...item,
+    positionIdx: idx + curIdx
+  }))
+
+  startOffset.value = positionList.value[idx].top
 }
-const currentList = ref<any[]>(props.source.slice(0, currentListLength))
-onMounted(() => {
-  updateCurrentList(0)
-})
-const currentListRef = ref<HTMLDivElement[] | null>(null)
-const resizeObserver = new ResizeObserver((entries) => {
-  entries.forEach((entry, index) => {
-    const positionIdx = startIdx + index
-    const curPosition = positionList.value[positionIdx]
-    curPosition.top = (entry.target as HTMLDivElement).offsetTop
-    const domHeight = entry.target.clientHeight
-    let oldHeight = curPosition.height
-    curPosition.height = domHeight
-    let dHeight = oldHeight - domHeight
-    debugger
-    // 向下更新
-    if (dHeight) {
-      curPosition.bottom = curPosition.bottom - dHeight
-      for (let k = positionIdx + 1; k < positionList.value.length; k++) {
-        positionList.value[k].top = positionList.value[k - 1].bottom
-        positionList.value[k].bottom = positionList.value[k].bottom - dHeight
-      }
-    }
-  })
-})
+const currentList = ref<any[]>(
+  props.source.slice(0, currentListLength).map((item, curIdx) => ({
+    ...item,
+    positionIdx: 0 + curIdx
+  }))
+)
 </script>
 
 <style lang="scss" scoped>
