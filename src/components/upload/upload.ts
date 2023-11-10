@@ -1,5 +1,6 @@
 export const calculateHash = async (chunkList: any[]) => {
   const p: Promise<string> = new Promise((resolve) => {
+    // 问题，worker 如何销毁
     const worker = new Worker('/hashWorker.js')
     worker.postMessage({ fileChunkList: chunkList })
     worker.onmessage = (event) => {
