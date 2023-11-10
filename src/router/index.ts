@@ -19,6 +19,10 @@ const router = createRouter({
       path:'/ListView',
       component: () => import('@/views/ListView.vue')
     },
+    {
+      path:'/FileUploadView',
+      component:()=>import('@/views/FileUploadView.vue')
+    }
     
   ]
 })
