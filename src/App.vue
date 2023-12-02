@@ -14,6 +14,8 @@ import { RouterLink, RouterView } from 'vue-router'
       <RouterLink to="/FileUploadView">FileUploadView</RouterLink>
       <hr />
       <RouterLink to="/DownloadView">DownloadView</RouterLink>
+      <hr />
+      <RouterLink to="/DialogView">DialogView</RouterLink>
     </nav>
   </header>
 

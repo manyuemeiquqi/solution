@@ -27,6 +27,10 @@ const router = createRouter({
     {
       path: '/DownloadView',
       component: () => import('@/views/DownloadView.vue')
+    },
+    {
+      path: '/DialogView',
+      component: () => import('@/views/DialogView.vue')
     }
   ]
 })
